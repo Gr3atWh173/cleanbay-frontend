@@ -4,7 +4,6 @@ import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 import '../styles/searchbox.css';
 
 export default function SearchBox(props) {
-
   const handleChange = (e) => props.setSearchQuery(e.target.value)
   const resetSearchQuery = () => props.setSearchQuery("")
 
@@ -17,8 +16,10 @@ export default function SearchBox(props) {
         onChange={handleChange}
         onKeyPress={(e) => e.key === 'Enter' && props.search()}
         className="textbox"
-        autoComplete="off"
+        autoComplete="new-password"
         autoCorrect="off"
+        spellCheck="false"
+        maxLength={2048}
         autoFocus="on" />
       
       {props.searchQuery.length !== 0 &&
