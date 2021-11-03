@@ -3,6 +3,8 @@
   padding: 0;
   line-height: 1.5em;
 
+  box-sizing: border-box;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

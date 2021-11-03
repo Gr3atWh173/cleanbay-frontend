@@ -1,0 +1,12 @@
+.pagination_actions {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.pagination_actions a {
+  font-family: "Arial", sans-serif;
+  font-size: 15px;
+  margin-right: 5px;
+}

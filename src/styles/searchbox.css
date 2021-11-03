@@ -1,14 +1,14 @@
 .searchbox {
   background: #fff;
   max-width: 584px;
-  min-width: 250px;
+  min-width: 300px;
   margin: auto;
   height: 44px;
   border-radius: 24px;
   box-shadow: none;
   border: 1px solid #dfe1e5;
   display: grid;
-  grid-template-columns: 10% 80% 10%;
+  grid-template-columns: 50px 1fr 40px;
 }
 
 .searchbox:hover {
@@ -37,5 +37,12 @@
   width: 100%;
   font-size: 16px;
   font-family: Arial, sans-serif;
-  color: rgba(0, 0, 0, .87)
+  color: rgba(0, 0, 0, 0.87);
+}
+
+@media (min-width: 961px), (min-width: 1025px) {
+  .searchbox {
+    min-width: 550px;
+    max-width: 600px;
+  }
 }

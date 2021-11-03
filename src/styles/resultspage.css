@@ -1,0 +1,87 @@
+.found {
+  margin-left: 69px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  color: #70757a;
+  font-size: 14px;
+}
+
+.searchbar {
+  display: grid;
+  grid-template-columns: 40px 400px;
+  min-height: 50px;
+  width: 100%;
+  padding: 15px;
+}
+
+.searchbar .searchbox {
+  grid-column: 2;
+  margin-left: 10px;
+}
+
+.torrent {
+  margin-left: 69px;
+  min-height: 80px;
+  width: 88%;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: flex-start;
+}
+
+.torrent a .name {
+  font-weight: 500;
+  font-size: large;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.torrent .info {
+  font-size: small;
+  color: #757575;
+}
+
+.torrent .info span {
+  margin-right: 20px;
+}
+
+.torrent .actions a {
+  text-decoration: none;
+  color: rgb(17, 17, 17);
+  font-size: small;
+  margin-right: 10px;
+}
+
+.torrent .actions a:hover {
+  text-decoration: underline;
+}
+
+.spinning-loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 5px solid rgba(29, 161, 242, 0.2);
+  border-left-color: rgb(29, 161, 242);
+  background: transparent;
+  animation: rotate-s-loader 1s linear infinite;
+  margin: 6rem auto;
+}
+
+@keyframes rotate-s-loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 320px), (max-width: 641px) {
+  .torrent {
+    margin-left: 17px;
+  }
+  .found {
+    margin-left: 17px;
+  }
+}

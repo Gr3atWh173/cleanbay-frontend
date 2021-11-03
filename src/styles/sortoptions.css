@@ -1,0 +1,50 @@
+.sortoptions {
+  height: fit-content;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #dfe1e5;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-left: 15px;
+  font-size: 15px;
+  font-family: "Arial", sans-serif;
+}
+
+.sortbuttons {
+  margin-bottom: 0px;
+  margin-left: 45px;
+  height: fit-content;
+}
+
+.sortbutton {
+  height: 35px;
+  width: 70px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid white;
+  color: rgba(0, 0, 0, 0.65);
+  font-family: "Arial", sans-serif;
+  font-size: 15px;
+  margin-left: 10px;
+  animation: linear 0.2s;
+}
+
+.sortbutton:hover {
+  border-bottom: 2px solid rgb(200, 200, 255);
+  cursor: pointer;
+}
+
+.active {
+  border-bottom: 2px solid rgb(0, 0, 255);
+}
+
+.active:hover {
+  border-bottom: 2px solid rgb(0, 0, 255);
+}
+
+@media (max-width: 320px), (max-width: 641px) {
+  .sortbuttons {
+    margin-left: -8px;
+  }
+}

@@ -12,7 +12,7 @@
   min-width: 54px;
   text-align: center;
   cursor: pointer;
-  user-select: none
+  user-select: none;
 }
 
 .searchbutton:hover {
