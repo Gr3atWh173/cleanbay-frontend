@@ -36,22 +36,22 @@ export default function SortOptions({
 
         <button
           onClick={() => {
-            setSortType("increasing_size");
-            inc_size();
-          }}
-          className={`sortbutton ${sortType === "increasing_size" && "active"}`}
-        >
-          Size (inc)
-        </button>
-
-        <button
-          onClick={() => {
             setSortType("decreasing_size");
             dec_size();
           }}
           className={`sortbutton ${sortType === "decreasing_size" && "active"}`}
         >
           Size (dec)
+        </button>
+
+        <button
+          onClick={() => {
+            setSortType("increasing_size");
+            inc_size();
+          }}
+          className={`sortbutton ${sortType === "increasing_size" && "active"}`}
+        >
+          Size (inc)
         </button>
       </div>
     </div>

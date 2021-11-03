@@ -115,8 +115,11 @@ function App() {
       case "seeders":
         sorted.sort((a, b) => b.seeders - a.seeders);
         break;
-      case "increasing_size":
+      case "decreasing_size":
         sorted.sort((a, b) => size_cast(b.size) - size_cast(a.size));
+        break;
+      case "increasing_size":
+        sorted.sort((a, b) => size_cast(a.size) - size_cast(b.size));
         break;
       case "relevance":
       default:
@@ -137,7 +140,7 @@ function App() {
   useEffect(() => {
     const options = { keywords: ["category", "site"] };
     const baseURL = "https://testbay.herokuapp.com";
-
+    
     // Using this because useParams() doesn't work outside the Routes tree
     const url_params = new URLSearchParams(window.location.search);
     const q = url_params.get("q");

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Header from "./Header";
 import Logo from "./Logo";
 
@@ -9,7 +10,10 @@ export default function Docs() {
       <Header />
 
       <div className="container padded">
-        <Logo type="big" />
+        <Link to="/" style={{ decoration: "none" }}>
+          <Logo type="big" />
+        </Link>
+
         <div className="smallspacer" />
 
         <div className="container" id="about">
