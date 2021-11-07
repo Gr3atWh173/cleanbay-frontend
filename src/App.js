@@ -141,7 +141,7 @@ function App() {
   useEffect(() => {
     const options = { keywords: ["category", "site"] };
     const baseURL = "https://testbay.herokuapp.com";
-
+    
     // Using this because useParams() doesn't work outside the Routes tree
     const url_params = new URLSearchParams(window.location.search);
     const q = url_params.get("q");
@@ -154,7 +154,7 @@ function App() {
     setSearchQuery(q);
 
     // actually sends requests to the backend
-    const search = async () => {
+    const search = async (is_lucky) => {
       let res = await _search();
 
       if (res.status !== undefined && res.status === "error") {
@@ -162,7 +162,7 @@ function App() {
         return;
       } else if (error.length) {
         return;
-      } else if (res.length == 0) {
+      } else if (res.length === 0) {
         setNoResults(true);
         return;
       } else {
@@ -170,6 +170,11 @@ function App() {
       }
 
       res.data = _sortTorrents(res.data, "relevance");
+
+      if (is_lucky) {
+        // automatically reroute to the link with the most relevance
+        window.location = res.data[0].magnet;
+      }
 
       setElapsed(res.elapsed);
       setTorrents(res.data);
@@ -273,8 +278,10 @@ function App() {
       return payload;
     };
 
-    if (q !== "") {
-      search();
+    if (q !== "" && l == 1) {
+      search(true);
+    } else if (q !== "") {
+      search(false);
     } else {
       // TODO: handle empty param
     }
