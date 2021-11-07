@@ -18,6 +18,7 @@ export default function ResultsPage({
   error,
   page,
   setPage,
+  noResults,
 }) {
   return (
     <div className="main">
@@ -51,9 +52,11 @@ export default function ResultsPage({
         <article className="message is-danger">
           <div className="message-body">{error}</div>
         </article>
-      ) : (
-        <div className="spinning-loader"></div>
-      )}
+      ) : noResults ? (
+        <article className="message is-warning">
+          <div className="message-body">No results found.</div>
+        </article>
+      ) : <div className="spinning-loader"></div>}
     </div>
   );
 }

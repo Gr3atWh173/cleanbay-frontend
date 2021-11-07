@@ -17,6 +17,7 @@ function App() {
   const [elapsed, setElapsed] = useState(0);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
+  const [noResults, setNoResults] = useState(false);
 
   const levDist = (s, t) => {
     s = s.toLowerCase();
@@ -140,7 +141,7 @@ function App() {
   useEffect(() => {
     const options = { keywords: ["category", "site"] };
     const baseURL = "https://testbay.herokuapp.com";
-    
+
     // Using this because useParams() doesn't work outside the Routes tree
     const url_params = new URLSearchParams(window.location.search);
     const q = url_params.get("q");
@@ -156,11 +157,16 @@ function App() {
     const search = async () => {
       let res = await _search();
 
-      if (error.length == 0 && res.status === "error") {
+      if (res.status !== undefined && res.status === "error") {
         setError(res.msg);
         return;
       } else if (error.length) {
         return;
+      } else if (res.length == 0) {
+        setNoResults(true);
+        return;
+      } else {
+        setNoResults(false);
       }
 
       res.data = _sortTorrents(res.data, "relevance");
@@ -313,6 +319,7 @@ function App() {
             handleLucky={handleLucky}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
+            noResults={noResults}
           />
         </Route>
         <Route path="/docs">
