@@ -17,16 +17,18 @@ export default function Torrent({ torrent }) {
       </div>
       <div className="actions">
         <a href={torrent.magnet}>Download</a>
-        <a
-          href={
-            "https://webtor.io/show?magnet=" +
-            encodeURIComponent(torrent.magnet)
-          }
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Play on browser (Webtor)
-        </a>
+        {torrent.magnet.startsWith("magnet:?xt=urn:btih:") && (
+          <a
+            href={
+              "https://webtor.io/show?magnet=" +
+              encodeURIComponent(torrent.magnet)
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Play on browser (Webtor)
+          </a>
+        )}
       </div>
     </div>
   );
