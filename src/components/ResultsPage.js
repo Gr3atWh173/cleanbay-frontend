@@ -20,6 +20,8 @@ export default function ResultsPage({
   setPage,
   noResults,
 }) {
+  document.title = searchQuery + " - Cleanbay Search";
+
   return (
     <div className="main">
       <div className="searchbar">

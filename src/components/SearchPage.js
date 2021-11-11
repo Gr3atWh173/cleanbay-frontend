@@ -14,6 +14,8 @@ export default function SearchPage({
   handleSearch,
   handleLucky,
 }) {
+  document.title = "Cleanbay";
+
   return (
     <div>
       <Header />
