@@ -56,7 +56,9 @@ export default function ResultsPage({
         <article className="message is-warning">
           <div className="message-body">No results found.</div>
         </article>
-      ) : <div className="spinning-loader"></div>}
+      ) : (
+        <div className="spinning-loader"></div>
+      )}
     </div>
   );
 }

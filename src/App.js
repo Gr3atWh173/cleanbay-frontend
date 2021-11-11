@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import SQParser from "search-query-parser";
 import axios from "axios";
+import name_parser from "parse-torrent-name";
 
 import SearchPage from "./components/SearchPage";
 import ResultsPage from "./components/ResultsPage";
@@ -13,48 +14,50 @@ import "../node_modules/bulma/css/bulma.css";
 
 function App() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [noResults, setNoResults] = useState(false);
   const [torrents, setTorrents] = useState([]);
   const [elapsed, setElapsed] = useState(0);
   const [error, setError] = useState("");
   const [page, setPage] = useState(0);
-  const [noResults, setNoResults] = useState(false);
+  // for sorting by relevance
+  const searchTerm = useRef("");
 
-  const levDist = (s, t) => {
-    s = s.toLowerCase();
-    t = t.toLowerCase();
+  var levDist = function (s, t) {
+    s = name_parser(s.toLowerCase()).title;
+    t = name_parser(t.toLowerCase()).title;
 
-    let d = []; //2d matrix
+    var d = []; //2d matrix
 
     // Step 1
-    let n = s.length;
-    let m = t.length;
+    var n = s.length;
+    var m = t.length;
 
-    if (n === 0) return m;
-    if (m === 0) return n;
+    if (n == 0) return m;
+    if (m == 0) return n;
 
     //Create an array of arrays in javascript (a descending loop is quicker)
-    for (let i = n; i >= 0; i--) d[i] = [];
+    for (var i = n; i >= 0; i--) d[i] = [];
 
     // Step 2
-    for (let i = n; i >= 0; i--) d[i][0] = i;
-    for (let j = m; j >= 0; j--) d[0][j] = j;
+    for (var i = n; i >= 0; i--) d[i][0] = i;
+    for (var j = m; j >= 0; j--) d[0][j] = j;
 
     // Step 3
-    for (let i = 1; i <= n; i++) {
-      let s_i = s.charAt(i - 1);
+    for (var i = 1; i <= n; i++) {
+      var s_i = s.charAt(i - 1);
 
       // Step 4
-      for (let j = 1; j <= m; j++) {
+      for (var j = 1; j <= m; j++) {
         //Check the jagged ld total so far
-        if (i === j && d[i][j] > 4) return n;
+        if (i == j && d[i][j] > 4) return n;
 
-        let t_j = t.charAt(j - 1);
-        let cost = s_i === t_j ? 0 : 1; // Step 5
+        var t_j = t.charAt(j - 1);
+        var cost = s_i == t_j ? 0 : 1; // Step 5
 
         //Calculate the minimum
-        let mi = d[i - 1][j] + 1;
-        let b = d[i][j - 1] + 1;
-        let c = d[i - 1][j - 1] + cost;
+        var mi = d[i - 1][j] + 1;
+        var b = d[i][j - 1] + 1;
+        var c = d[i - 1][j - 1] + cost;
 
         if (b < mi) mi = b;
         if (c < mi) mi = c;
@@ -65,8 +68,8 @@ function App() {
         if (
           i > 1 &&
           j > 1 &&
-          s_i === t.charAt(j - 2) &&
-          s.charAt(i - 2) === t_j
+          s_i == t.charAt(j - 2) &&
+          s.charAt(i - 2) == t_j
         ) {
           d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
         }
@@ -124,9 +127,24 @@ function App() {
         break;
       case "relevance":
       default:
-        sorted.sort(
-          (a, b) => levDist(a.name, searchQuery) - levDist(b.name, searchQuery)
-        );
+        sorted.sort((a, b) => {
+          let dist_a = levDist(a.name, searchTerm.current);
+          let dist_b = levDist(b.name, searchTerm.current);
+
+          if (dist_b > dist_a) {
+            return -1;
+          } else if (dist_a == dist_b) {
+            return b.seeders - a.seeders;
+          } else {
+            return 1;
+          }
+        });
+        // then sort the top 10 by seeders
+        let original_len = sorted.length;
+        sorted = sorted
+          .slice(0, 11)
+          .sort((a, b) => b.seeders - a.seeders)
+          .concat(sorted.slice(11, original_len));
         break;
     }
     return sorted;
@@ -140,8 +158,8 @@ function App() {
 
   useEffect(() => {
     const options = { keywords: ["category", "site"] };
-    const baseURL = "https://testbay.herokuapp.com";
-    
+    const baseURL = process.env.REACT_APP_BASE_URL;
+
     // Using this because useParams() doesn't work outside the Routes tree
     const url_params = new URLSearchParams(window.location.search);
     const q = url_params.get("q");
@@ -171,13 +189,13 @@ function App() {
 
       res.data = _sortTorrents(res.data, "relevance");
 
+      setElapsed(res.elapsed);
+      setTorrents(res.data);
+
       if (is_lucky) {
         // automatically reroute to the link with the most relevance
         window.location = res.data[0].magnet;
       }
-
-      setElapsed(res.elapsed);
-      setTorrents(res.data);
     };
 
     const _search = async () => {
@@ -190,8 +208,7 @@ function App() {
         return;
       }
 
-      // should not use both exclude and include variations of the
-      // same filter
+      // should not use both exclude and include variations of the same filter
       if (
         payload.include_categories.length &&
         payload.exclude_categories.length
@@ -207,6 +224,9 @@ function App() {
         );
         return;
       }
+
+      // set the search term, will be useful when sorting by relevance later
+      searchTerm.current = payload.search_term;
 
       let res = await axios
         .post(`${baseURL}/api/v1/search`, payload)

@@ -41,7 +41,7 @@ export default function SortOptions({
           }}
           className={`sortbutton ${sortType === "decreasing_size" && "active"}`}
         >
-          Size (dec)
+          Biggest
         </button>
 
         <button
@@ -51,7 +51,7 @@ export default function SortOptions({
           }}
           className={`sortbutton ${sortType === "increasing_size" && "active"}`}
         >
-          Size (inc)
+          Smallest
         </button>
       </div>
     </div>
