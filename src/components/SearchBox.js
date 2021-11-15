@@ -24,11 +24,14 @@ export default function SearchBox(props) {
       />
 
       {props.searchQuery.length !== 0 && (
-        <FontAwesomeIcon
+        <div
+          role="button"
+          className="cross"
+          style={{ width: "100%", height: "100%" }}
           onClick={resetSearchQuery}
-          icon={faTimes}
-          className="searchicon cross"
-        />
+        >
+          <FontAwesomeIcon icon={faTimes} className="searchicon" />
+        </div>
       )}
     </div>
   );

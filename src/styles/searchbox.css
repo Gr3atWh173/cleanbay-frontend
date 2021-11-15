@@ -28,6 +28,7 @@
 .cross {
   grid-column: 3;
   cursor: pointer;
+  display: flex;
 }
 
 .textbox {
