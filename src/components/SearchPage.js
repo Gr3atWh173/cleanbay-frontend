@@ -38,8 +38,13 @@ export default function SearchPage({
           <SearchButtons search={handleSearch} lucky={handleLucky} />
 
           <div className="content container mt-6 is-size-6">
-            Need filters?&nbsp;
+            Need advanced search?&nbsp;
             <a href="/docs#search-syntax">Read the search syntax guide.</a>
+          </div>
+
+          <div className="content container is-size-6">
+            Wondering how to get started?&nbsp;
+            <a href="/docs#getting-started">Its pretty easy.</a>
           </div>
 
           {/*

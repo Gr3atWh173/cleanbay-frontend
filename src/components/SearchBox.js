@@ -20,7 +20,8 @@ export default function SearchBox(props) {
         autoCorrect="off"
         spellCheck="false"
         maxLength={2048}
-        autoFocus="on"
+        autoFocus="autofocus"
+        placeholder="What do you want to download?"
       />
 
       {props.searchQuery.length !== 0 && (

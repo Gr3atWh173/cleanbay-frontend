@@ -23,20 +23,36 @@ export default function Docs() {
             <p>
               Cleanbay is an{" "}
               <strong>advertisement, tracker and miner free</strong> search
-              engine for torrents born out of my frustration with looking for
-              torrents on other torrent indexes full of instrusive ads, trackers
-              and miners.
+              engine for torrents. Born out of the frustration with the user experience
+              offered by other indexes.
             </p>
             <p>
-              It started out as a personal project used only by myself and my
-              friends but eventually I decided to make it public.
+              <strong>How does this work?</strong>{" "}Cleanbay works by{" "}
+              <strong>searching the torrent indexes on-demand.</strong> When you search 
+              something, Cleanbay searches other indexes and serves the results to you.
+              {" "}<strong>Cleanbay's servers do not store any torrents or associated 
+              data.</strong>
+            </p>
+          </div>
+        </div>
+        <div className="spacer" />
+        <div className="container" id="getting-started">
+          <h1 className="title">Getting Started</h1>
+          <h2 className="subtitle">How to use Cleanbay</h2>
+          <div className="content">
+            <p>
+              Using Cleanbay is pretty straightforward. <strong>All you need is a 
+              torrent client</strong> (software that helps you download torrents). 
+              You'll find plenty on the internet -&nbsp; 
+              <a href="https://www.qbittorrent.org/download.php" target="_blank">
+                qBittorrent
+              </a>, a free and open source torrent client is one of them.
             </p>
             <p>
-              <strong>How does this work?</strong>&nbsp; Cleanbay works by{" "}
-              <strong>searching the torrent indexes on-demand.</strong> When you
-              search something, Cleanbay queries other indexes, compiles their
-              results and serves them to you.{" "}
-              <strong>Nothing is stored on Cleanbay's servers.</strong>
+              Once you're setup with a torrent client, go ahead and <strong>use Cleanbay
+              to search</strong> for whatever you want. When you click on any of the 
+              links returned by the search, the <strong>installed client will prompt you
+              to download it.</strong>
             </p>
           </div>
         </div>
@@ -97,6 +113,8 @@ export default function Docs() {
             </p>
           </div>
         </div>
+        <div className="spacer" />
+        <div className="spacer" />
       </div>
     </div>
   );
