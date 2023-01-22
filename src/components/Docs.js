@@ -95,7 +95,7 @@ export default function Docs() {
             </p>
             <p>
               Supported sites are{" "}
-              <code>piratebay, yts, eztv, linuxtracker, libgen</code>
+              <code>piratebay, yts, eztv, linuxtracker, libgen, nyaa</code>
             </p>
             <p>
               Supported categories are{" "}
